@@ -4,6 +4,9 @@
 const Player = require('./player');
 const inquirer = require('inquirer');
 
+var score = 0;
+var gameRound = 0;
+var maxRounds = 5;
 //====
 // ARRAYS
 //====
@@ -62,19 +65,68 @@ function promptCreationOfPlayer() {
                 );
                 if(starters.length < 2){
                     starters.push(player);
+                    console.log(player.name + ' was added to the starting roster.');
                 } else {
                     substitutes.push(player);
+                    console.log(player.name + ' was addes to the subsitute roster.');
+                    
                 }
                 players.push(player);
 
-            promptCreationOfPlayer();     
+            promptCreationOfPlayer();  
         });   
         
     } else {
         console.log('\n====\n PLAYERS \n====\n', players);  
         console.log('\n====\n STARTERS \n====\n', starters);  
         console.log('\n====\n SUBSTITUTES \n====\n', substitutes);  
+        playGame();   
     }
 }
 
-promptCreationOfPlayer()
+//====
+// PLAY GAME FUNCTION
+// Calls PlayRound() function
+//====
+function playGame(){
+    console.log('\n====\n PLAY GAME \n====\n');
+    if(gameRound < maxRounds) {
+        playRound();
+    } //else (
+        //endGame();
+    //)
+}
+
+//====
+// PLAY ROUND FUNCTION
+//====
+function playRound() {
+    gameRound++;
+
+    let opponentOffense = Math.floor(Math.random() * 20 + 1);
+    let opponentDefense = Math.floor(Math.random() * 20 + 1);
+
+    let teamOffense = 0;
+    let teamDefense = 0;
+    for(var i = 0; i < starters.length; i++) {
+        teamOffense += starters[i].offense;
+    }
+    for(var i = 0; i < starters.length; i++) {
+        teamDefense += starters[i].defense;
+    }
+    console.log('My Offense Scored:' + teamOffense + ' points.');
+    console.log('Opponent Defense Scored:' + opponentDefense + ' points.');
+    console.log('My Defense Scored:' + teamDefense + ' points.');
+    console.log('Opponent Offense Scored:' + opponentOffense + ' points.');
+
+    if(opponentDefense < teamOffense) {
+        score++;
+        console.log("YOUR TEAM SCORED A POINT!");
+    }
+    if(opponentOffense > teamDefense) {
+        score--;
+        console.log("ONE POINT WAS SCORED AGAINST YOUR TEAM!");
+    }
+}
+
+promptCreationOfPlayer();
