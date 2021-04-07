@@ -20,19 +20,19 @@ function Player(appellation, job, off, def) {
     this.goodGame = function(){
         if(Math.floor(Math.random() * 2) === 0) {
             this.offense++;
-            console.log(this.name + "'s offensive has increased by one point!\n=============\n");
+            console.log(this.name + "'s offensive has increased by one point!\n====\n");
         } else {
             this.defense++;
-            console.log(this.name + "'s offensive has increased by one point!\n=============\n");
+            console.log(this.name + "'s offensive has increased by one point!\n====\n");
         }
     } 
     this.baddGame = function(){
         if(Math.floor(Math.random() * 2) === 0) {
             this.offense--;
-            console.log(this.name + "'s offensive has decreased by one point!\n=============\n");
+            console.log(this.name + "'s offensive has decreased by one point!\n====\n");
         } else {
             this.defense--;
-            console.log(this.name + "'s offensive has decreased by one point!\n=============\n");
+            console.log(this.name + "'s offensive has decreased by one point!\n====\n");
         }
     } 
 
@@ -41,12 +41,15 @@ function Player(appellation, job, off, def) {
     //==========
     this.printStats = function() {
         console.log(
+        '\n====\n' +
         'Player: ' + this.name +
         '\n Position: ' + this.position +
         '\n Offense: ' + this.offense +
         '\n Defense: ' + this.defense +
-        '\n==============================\n'
+        '\n====\n'
         )
     }
 
 }
+
+module.exports = Player;
